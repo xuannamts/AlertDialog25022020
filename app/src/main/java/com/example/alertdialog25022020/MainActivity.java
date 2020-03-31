@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     Button mBtnAlert;
+    int index = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,29 +28,36 @@ public class MainActivity extends AppCompatActivity {
                 builder.setIcon(R.mipmap.ic_launcher);
                 builder.setCancelable(false);
 
-                //Button Xác nhận
-                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(MainActivity.this, "Có", Toast.LENGTH_SHORT).show();
-                        dialogInterface.dismiss();
-                    }
-                });
-                //Button từ chối
-                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(MainActivity.this, "Không", Toast.LENGTH_SHORT).show();
-                    }
-                });
 
-                //Button hủy
-                builder.setNeutralButton("Hủy", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(MainActivity.this, "Hủy", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    final String[] arrayAnimals = {"Mèo","Chó","Heo","Gà","Voi","Ngựa"};
+                    // Single choice
+                builder.setSingleChoiceItems(arrayAnimals, -1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Toast.makeText(MainActivity.this, "Có", Toast.LENGTH_SHORT).show();
+                            dialogInterface.dismiss();
+                            index = i;
+                        }
+                    });
+                    //Button từ chối
+                builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                        builder.setPositiveButton("Chọn", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast.makeText(MainActivity.this, "Không", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, arrayAnimals[index] , Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        // Multiple choice
+
+                        //Button hủy
+                        builder.setNeutralButton("Hủy", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast.makeText(MainActivity.this, "Hủy", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
 
                 builder.show();
             }
